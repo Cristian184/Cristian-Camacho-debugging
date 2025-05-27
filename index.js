@@ -25,8 +25,18 @@ function getRandomNumber(min, max) {
 function checkGuess() {
   // Get value from guess input element
   const guess = parseInt(guessInput.value, 10);
-  attempts = attempts + 1;
+  
 
+
+
+  if(isNaN(guess) || guess < 1 || guess > 99) {
+    hideAllMessages();
+    numberOfGuessesMessage.style.display = '';
+    numberOfGuessesMessage.innerHTML = 'Please enter a number between 1 and 99.';
+    return;
+  }
+
+  attempts += 1;
   hideAllMessages();
 
   if (guess === targetNumber) {
@@ -37,48 +47,50 @@ function checkGuess() {
 
     submitButton.disabled = true;
     guessInput.disabled = true;
-  }
-
+  } else {
   if (guess !== targetNumber) {
     if (guess < targetNumber) {
       tooLowMessage.style.display = '';
     } else {
-      tooLowMessage.style.display = '';
+      tooHighMessage.style.display = '';
     }
 
     const remainingAttempts = maxNumberOfAttempts - attempts;
+    const guessWord = remainingAttempts === 1 ? 'guess' : 'guesses';
 
     numberOfGuessesMessage.style.display = '';
     numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
   }
 
-  if (attempts ==== maxNumberOfAttempts) {
+  if (attempts === maxNumberOfAttempts) {
+    maxGuessesMessage.style.display = '';
     submitButton.disabled = true;
     guessInput.disabled = true;
   }
-
+  }
   guessInput.value = '';
 
   resetButton.style.display = '';
 }
 
 function hideAllMessages() {
-  for (let elementIndex = 0; elementIndex <= messages.length; elementIndex++) {
-    messages[elementIndex].style.display = 'none';
+  for (let i = 0; i < messages.length; i++) {
+    messages[i].style.display = 'none';
   }
 }
 
-funtion setup() {
+function setup() {
   // Get random number
   targetNumber = getRandomNumber(1, 100);
   console.log(`target number: ${targetNumber}`);
 
   // Reset number of attempts
-  maxNumberOfAttempts = 0;
+  attempts = 0;
 
   // Enable the input and submit button
-  submitButton.disabeld = false;
+  submitButton.disabled = false;
   guessInput.disabled = false;
+  guessInput.value = '';
 
   hideAllMessages();
   resetButton.style.display = 'none';
