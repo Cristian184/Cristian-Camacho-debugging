@@ -42,13 +42,11 @@ function checkGuess() {
   if (guess === targetNumber) {
     numberOfGuessesMessage.style.display = '';
     numberOfGuessesMessage.innerHTML = `You made ${attempts} guesses`;
-
     correctMessage.style.display = '';
-
     submitButton.disabled = true;
     guessInput.disabled = true;
-  } else {
-  if (guess !== targetNumber) {
+  } 
+  
     if (guess < targetNumber) {
       tooLowMessage.style.display = '';
     } else {
@@ -56,17 +54,15 @@ function checkGuess() {
     }
 
     const remainingAttempts = maxNumberOfAttempts - attempts;
-    const guessWord = remainingAttempts === 1 ? 'guess' : 'guesses';
-
     numberOfGuessesMessage.style.display = '';
     numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
-  }
+
 
   if (attempts === maxNumberOfAttempts) {
+    hideAllMessages();
     maxGuessesMessage.style.display = '';
     submitButton.disabled = true;
     guessInput.disabled = true;
-  }
   }
   guessInput.value = '';
 
