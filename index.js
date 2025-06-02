@@ -43,7 +43,7 @@ function checkGuess() {
     submitButton.disabled = true;
     guessInput.disabled = true;
   } 
-  
+  if(guess !== targetNumber) {
     if (guess < targetNumber) {
       tooLowMessage.style.display = '';
     } else {
@@ -61,6 +61,7 @@ function checkGuess() {
     submitButton.disabled = true;
     guessInput.disabled = true;
   }
+}
   guessInput.value = '';
 
   resetButton.style.display = '';
